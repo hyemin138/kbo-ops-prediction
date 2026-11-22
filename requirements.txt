@@ -1,0 +1,4 @@
+# Python 3.11 (PyCaret 3.3.2는 3.9~3.11만 지원)
+pycaret==3.3.2   # pandas·scikit-learn·statsmodels·matplotlib 함께 설치됨
+six              # pycaret 의존성(scikit-plot)에서 누락되는 패키지
+pytest

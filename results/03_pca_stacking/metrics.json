@@ -1,0 +1,25 @@
+{
+  "n_components": 3,
+  "explained_variance": 0.9302,
+  "meta_linear": {
+    "cv5_r2": 0.9581,
+    "test_2024": {
+      "RMSE": 0.0514,
+      "R2": 0.8587
+    }
+  },
+  "meta_ridge": {
+    "cv5_r2": 0.9552,
+    "test_2024": {
+      "RMSE": 0.0524,
+      "R2": 0.8531
+    }
+  },
+  "meta_huber": {
+    "cv5_r2": 0.9582,
+    "test_2024": {
+      "RMSE": 0.051,
+      "R2": 0.8608
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "stack": [
+    "Linear Regression",
+    "Bayesian Ridge",
+    "Huber Regressor",
+    "Ridge Regression",
+    "Orthogonal Matching Pursuit"
+  ],
+  "cv10_rmse": 0.0103,
+  "test_2024": {
+    "MAE": 0.0249,
+    "RMSE": 0.0371,
+    "R2": 0.9261
+  }
+}

@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+.env
+
+# PyCaret / 모델 파일
+*.pkl
+logs.log
+catboost_info/
+
+# OS
+.DS_Store
