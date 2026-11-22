@@ -7,10 +7,10 @@
 | `crawling/statiz_batting.py` | Statiz 2021~2024 타격 기록 수집 (requests + BeautifulSoup) | 출처 사이트를 현재 이용할 수 없어 재실행 불가 |
 | `crawling/kbo_insight_batting.py` | KBO Insight 세부 지표 수집 (Selenium) | 출처 사이트를 현재 이용할 수 없어 재실행 불가 |
 | `preprocessing/merge_players.py` | Statiz + KBO Insight 선수·연도 기준 병합 | KBO Insight 수집 원본이 없어 재실행 불가 |
-| `original_notebooks/pycaret_stacking_colab.ipynb` | 모델링 01 원본 | `src/02_pycaret_stacking.py`로 정리 |
-| `original_notebooks/pca_stacking_colab.ipynb` | EDA·VIF·모델링 02~04 원본 | `src/01_eda.py`, `src/03_pca_stacking.py`로 정리 |
+| `original_notebooks/pycaret_stacking_colab.py` | 모델링 01 원본 | `src/02_pycaret_stacking.py`로 정리 |
+| `original_notebooks/pca_stacking_colab.py` | EDA·VIF·모델링 02~04 원본 | `src/01_eda.py`, `src/03_pca_stacking.py`로 정리 |
 
-크롤링·병합 코드는 Colab 노트북을 `.py`로 옮긴 것으로, Colab 전용 명령(`!pip`, Drive 연결 등)은 주석 처리돼 있습니다.
+크롤링·병합·원본 노트북 코드는 Colab 노트북을 `.py`로 옮긴 것으로, Colab 전용 명령(`!pip`, Drive 연결 등)은 주석 처리돼 있습니다.
 
 ## 최종 데이터와의 연결
 

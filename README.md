@@ -114,7 +114,7 @@ kbo-ops-prediction/
 ├── tests/test_data.py                # 데이터·전처리 확인
 ├── tableau/kbo_dashboard.twbx        # Tableau 대시보드 원본
 ├── assets/                           # 대시보드 이미지
-└── archive/                          # 크롤링·병합·원본 노트북 (참고용)
+└── archive/                          # 크롤링·병합·원본 Colab 코드 (참고용)
 ```
 
 ## 실행
