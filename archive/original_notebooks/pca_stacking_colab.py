@@ -6,18 +6,12 @@
 #EDA 사전세팅
 # Colab: %matplotlib inline
 
-import time
 import os
 
 os.environ['KMP_WARNINGS'] = 'off'
-from functools import reduce
-import matplotlib as mpl
-from datetime import datetime as dt
 import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 import pandas as pd
 import numpy as np
-from scipy import stats
 import seaborn as sns  #데이터 시각화
 
 pd.set_option('display.max_columns', None) ## 모든 열을 출력한다.
@@ -74,7 +68,6 @@ sns.barplot(x = corr_with_target[corr_with_target >= 0.1] , y = corr_with_target
 plt.xlabel('Correlation')
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
-import pandas as pd
 
 # VIF 분석을 위한 데이터 준비 (연도, 이름 등 불필요한 변수 제거)
 feature_columns = train_df.drop(columns=["OPS"]).copy()
@@ -116,7 +109,6 @@ y_train = train_df["OPS"]
 X_test = test_df.drop(columns=["OPS"], errors="ignore")
 
 from sklearn.decomposition import PCA
-import numpy as np
 
 
 pca = PCA()
@@ -137,8 +129,6 @@ pca_df = pd.DataFrame({
 
 pca_df
 
-import numpy as np
-import matplotlib.pyplot as plt
 
 # PCA 주성분별 설명력 확인
 explained_variance_ratio = pca.explained_variance_ratio_
@@ -170,9 +160,6 @@ X_test = test_df.drop(columns=["OPS"], errors="ignore")  # 테스트 데이터�
 #PCA 변환 적용 (훈련 데이터에서 학습한 PCA 사용)
 X_test_pca_selected = pca_selected.transform(X_test)  # transform만 수행
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression, Ridge, HuberRegressor, BayesianRidge, Lars
 from sklearn.metrics import r2_score, mean_squared_error
 
@@ -310,8 +297,6 @@ if r2_test < cv_scores.mean() - 0.05:
     print("과적합 가능성이 있음")
 
 from sklearn.model_selection import learning_curve
-import numpy as np
-import matplotlib.pyplot as plt
 
 # PCA 변환된 데이터 사용
 X_train_pca_selected = X_pca_selected  # 훈련 데이터 (이미 PCA 적용됨)
@@ -353,7 +338,6 @@ plt.show()
 
 # # ✅Ridge - 스태킹 ✔
 
-from sklearn.ensemble import StackingRegressor
 
 #  PCA 변환된 데이터 사용
 X_train_pca_selected = X_pca_selected  # 훈련 데이터 (이미 PCA 적용됨)
@@ -422,7 +406,6 @@ gap = abs(train_r2 - test_r2)
 if gap > 0.1:
     print("Train과 Test 성능 차이 큼")
 
-from sklearn.model_selection import cross_val_score
 
 # K-Fold Cross Validation (5-Fold)
 cv_scores = cross_val_score(stacking_model, X_pca_selected, y_train, cv=5, scoring='r2')
@@ -436,9 +419,6 @@ if r2_test < cv_scores.mean() - 0.05:  # 테스트 R²이 교차 검증 평균�
 
 # **랜덤포레스트, xgb를 메타모델로 하면 과적합 발생**
 
-from sklearn.model_selection import learning_curve
-import numpy as np
-import matplotlib.pyplot as plt
 
 # PCA 변환된 데이터 사용
 X_train_pca_selected = X_pca_selected  # 훈련 데이터 (이미 PCA 적용됨)
@@ -488,7 +468,6 @@ plt.show()
 # - 오차가 클 때 : MAE 처럼 작동
 # :
 
-from sklearn.ensemble import StackingRegressor
 
 #  PCA 변환된 데이터 사용
 X_train_pca_selected = X_pca_selected  # 훈련 데이터 (이미 PCA 적용됨)
@@ -549,7 +528,6 @@ gap = abs(train_r2 - test_r2)
 if gap > 0.1:
     print("Train과 Test 성능 차이 큼")
 
-from sklearn.model_selection import cross_val_score
 
 # K-Fold Cross Validation (5-Fold)
 cv_scores = cross_val_score(stacking_model, X_pca_selected, y_train, cv=5, scoring='r2')
@@ -561,9 +539,6 @@ print(f"평균 R²: {cv_scores.mean():.3f}")
 if r2_test < cv_scores.mean() - 0.05:  # 테스트 R²이 교차 검증 평균보다 0.05 낮으면 과적합 가능성
     print("과적합 가능성 있음")
 
-from sklearn.model_selection import learning_curve
-import numpy as np
-import matplotlib.pyplot as plt
 
 # PCA 변환된 데이터 사용
 X_train_pca_selected = X_pca_selected  # 훈련 데이터 (이미 PCA 적용됨)
