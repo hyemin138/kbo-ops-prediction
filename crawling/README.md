@@ -11,6 +11,16 @@
 | `merge_players.py` | Statiz + KBO Insight 병합 (이름 + 연도) | `kbo_df.csv` → 최종 CSV |
 | `statiz_pitch_type.py` | Statiz 구종별 기록 (Selenium), Tableau용 | `statiz_pitch_type.csv` |
 
+## 최종 CSV와 변수 구성이 다른 이유
+
+크롤링·병합을 팀원별로 진행한 뒤 결과를 합쳐 최종 CSV를 만들었고, 합치는 과정의 코드는 남아 있지 않음
+
+| 구분 | 크롤링 출력 | 최종 CSV |
+|---|---|---|
+| Statiz | `순위`, `팀`, `년도` 포함 (34열) | `순위` 삭제, `년도` → `연도`, 팀 표기 다름 (기아 → KIA) |
+| KBO Insight | `번호`, `타석`, `AVG`·`OBP`·`SLG`·`OPS` 포함 | Statiz와 겹치는 열 삭제, `나이`와 세부 지표 16개만 사용 |
+| 동명이인 | 행 번호로 삭제 | 이름 뒤 팀 표기로 구분 (김민혁(KT) 등) |
+
 ## 최종 CSV와의 연결
 
 | 단계 | 상태 |
