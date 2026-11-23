@@ -1,7 +1,5 @@
-# 과거 분석 기록 (Colab 환경 기준) — 현재 분석 실행에는 사용하지 않습니다.
-# Statiz + KBO Insight 기록을 선수·연도 기준으로 병합
-#
-# 흐름: Insight는 4시즌 공통 선수만 → 두 출처에만 있는 선수 확인 → 이름+연도로 inner join → 저장
+# Statiz + KBO Insight 병합 (이름 + 연도 기준)
+# insight_final.csv 미보유로 재실행 불가
 
 import pandas as pd
 
@@ -9,6 +7,7 @@ TARGET_YEARS = {2021, 2022, 2023, 2024}
 
 
 def main():
+    """Statiz, KBO Insight 병합"""
     statiz = pd.read_csv("/content/statiz_final.csv")
     insight = pd.read_csv("/content/insight_final.csv")
 
