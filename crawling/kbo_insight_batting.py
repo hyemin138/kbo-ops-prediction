@@ -1,8 +1,5 @@
-# 과거 분석 기록 (Colab 환경 기준) — 현재 분석 실행에는 사용하지 않습니다.
-# KBO Insight 2021~2024 시즌 세부 타격 지표 수집 (Selenium + BeautifulSoup)
-#
-# 흐름: 연도별 1~10페이지 수집 → 4시즌 공통 선수만 남김 → 동명이인 제거 → OPS 상관관계 확인
-# 원본 노트북에는 CSV 저장 코드가 없음
+# KBO Insight 2021~2024 세부 타격 지표 수집 (Selenium + BeautifulSoup)
+# 사이트 변경으로 재실행 불가, 원본 노트북에 CSV 저장 코드 없음
 # Colab 설치: !pip install beautifulsoup4 selenium / !apt install chromium-chromedriver
 
 import time
@@ -26,8 +23,7 @@ COLUMNS = ["번호", "이름", "나이", "연도", "팀", "타석", "AVG", "OBP"
            "wOBA", "EV", "sd(LA)", "SwSp%", "Chase%", "Whiff%", "CSW%", "Zone Judgement",
            "HardHit%", "Barrel%", "Barrel/PA", "ICR%", "IPA%", "xBA", "xwOBAcon", "xwOBA"]
 
-# 4시즌 공통 선수 중 동명이인 행 제거 (원본 노트북에서 나이·팀으로 직접 확인)
-# reset_first: 인덱스를 1부터 다시 매긴 뒤 지울지 여부 (원본 순서 그대로)
+# 동명이인 행 (나이·팀으로 확인)
 DUPLICATE_ROWS = {
     2021: {"rows": [60, 57], "reset_first": True},   # 김민수, 이재원(21, LG)
     2022: {"rows": [63], "reset_first": False},      # 이재원(22, LG)
@@ -37,6 +33,7 @@ DUPLICATE_ROWS = {
 
 
 def make_driver():
+    """headless Chrome 드라이버"""
     options = webdriver.ChromeOptions()
     for arg in ("--headless", "--no-sandbox", "--disable-dev-shm-usage"):
         options.add_argument(arg)
@@ -44,7 +41,7 @@ def make_driver():
 
 
 def fetch_season(year):
-    """동적 페이지라 Selenium으로 열고, 로딩 후 표의 <tr>/<td>를 읽음."""
+    """한 시즌 1~10페이지 표 수집 (동적 페이지)"""
     driver = make_driver()
     data = []
     for page in PAGES:
@@ -61,12 +58,14 @@ def fetch_season(year):
 
 
 def reset_index_from_1(df):
+    """인덱스 1부터 재정렬"""
     df = df.reset_index(drop=True)
     df.index += 1
     return df
 
 
 def main():
+    """4시즌 수집 후 공통 선수 추출 및 OPS 상관관계 확인"""
     seasons = {year: fetch_season(year) for year in YEARS}
 
     # 4시즌 모두 기록이 있는 선수만, 동명이인 행 제거

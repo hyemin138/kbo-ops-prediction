@@ -1,7 +1,5 @@
-# 과거 분석 기록 (Colab 환경 기준) — 현재 분석 실행에는 사용하지 않습니다.
-# Statiz 2021~2024 시즌 타격 기록 수집 (requests + BeautifulSoup)
-#
-# 흐름: 연도별 표 수집 → 팀 이름 매핑 → 4시즌 공통 선수만 남김 → 동명이인 제거 → CSV 저장
+# Statiz 2021~2024 타격 기록 수집 (requests + BeautifulSoup)
+# 사이트 변경으로 재실행 불가 (출력값은 data/raw/statiz_final.csv와 일치)
 # Colab 설치: !pip install beautifulsoup4
 
 import pandas as pd
@@ -17,21 +15,20 @@ URL = (
     "&sf1=WAROff&sk1=&sv1=&sf2=WAROff&sk2=&sv2="
 )
 
-# 표의 열 순서 (마지막 WAR는 중복 열이라 뒤에서 제거)
+# 표 열 순서 (마지막 WAR는 중복 열)
 COLUMNS = ["순위", "이름", "포지션", "WAR", "oWAR", "dWAR", "G", "PA",
            "ePA", "AB", "R", "H", "2B", "3B", "HR", "TB", "RBI", "SB",
            "CS", "BB", "HP", "IB", "SO", "GDP", "SH", "SF", "AVG", "OBP",
            "SLG", "OPS", "R/ePA", "wRC+", "WAR"]
 
-# 팀 로고 이미지 경로의 번호 → 팀 이름
+# 팀 로고 경로 번호 -> 팀 이름
 TEAM_CODES = {"12001": "KT", "2002": "기아", "10001": "키움", "1001": "삼성", "5002": "LG",
               "11001": "NC", "9002": "SSG", "6002": "두산", "3001": "롯데", "7002": "한화"}
 
-# 12행마다 반복되는 표 머리글 2줄 (마지막 위치가 연도별로 다름)
+# 12행마다 반복되는 머리글 2줄의 마지막 위치
 HEADER_ROW_LAST = {2021: 312, 2022: 288, 2023: 312, 2024: 312}
 
-# 4시즌 공통 선수 중 동명이인 행 (원본 노트북에서 출생연도·팀으로 직접 확인해 제외)
-# 대상: 김민혁·김민수·이재원·이원석·이명기·이주형·김재현 등
+# 동명이인 행 (출생연도·팀으로 확인): 김민혁, 김민수, 이재원, 이원석 등
 DUPLICATE_ROWS = {
     2021: [71, 86, 94, 98, 102],
     2022: [55, 89, 114, 119],
@@ -41,7 +38,7 @@ DUPLICATE_ROWS = {
 
 
 def fetch_season(year):
-    """한 시즌 표를 수집해 DataFrame으로 반환."""
+    """한 시즌 표 수집"""
     soup = BeautifulSoup(requests.get(URL.format(year=year)).text, "html.parser")
     rows = soup.find("table").select("tbody > tr")
     df = pd.DataFrame([[td.text.strip() for td in tr.find_all("td")] for tr in rows], columns=COLUMNS)
@@ -68,12 +65,14 @@ def fetch_season(year):
 
 
 def reset_index_from_1(df):
+    """인덱스 1부터 재정렬"""
     df = df.reset_index(drop=True)
     df.index += 1
     return df
 
 
 def main():
+    """4시즌 수집 후 공통 선수만 CSV 저장"""
     seasons = {year: fetch_season(year) for year in YEARS}
 
     # 2021: 개명한 선수 이름 통일 (순위 178 김민수 → 김수윤)

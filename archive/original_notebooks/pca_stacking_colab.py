@@ -1,5 +1,4 @@
-# 과거 분석 기록 (Colab 환경 기준)
-# 현재 분석 실행에는 사용하지 않습니다. 정리본은 src/ 참고.
+# Colab 원본 (참고용, 정리본은 src/)
 
 # EDA·VIF·모델링 02~04 원본: PCA + 스태킹 (메타모델 선형·Ridge·Huber)
 
@@ -203,10 +202,10 @@ for name, model in models.items():
 results_df = pd.DataFrame(results).T
 
 # 결과 출력
-print("\n📊 모델별 성능 비교")
+print("\n모델별 성능 비교")
 print(results_df)
 
-# # ✅선형회귀 - 스태킹
+# # 선형회귀 - 스태킹
 
 # **메타 모델 선택 기준**
 #
@@ -336,7 +335,7 @@ plt.legend()
 plt.grid()
 plt.show()
 
-# # ✅Ridge - 스태킹 ✔
+# # Ridge - 스태킹
 
 
 #  PCA 변환된 데이터 사용
@@ -458,7 +457,7 @@ plt.legend()
 plt.grid()
 plt.show()
 
-# # ✅ huber regressor - 스태킹
+# # huber regressor - 스태킹
 
 # 일반적인 선형회귀와 이상치에 강한 로버스트 회귀의 장점을 결합한 회귀모델
 #
